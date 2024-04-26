@@ -139,7 +139,7 @@ function Header() {
 
           {/* Desktop view menu */}
           <div className="items-center flex-shrink-0 hidden lg:flex">
-            <div className="flex -mt-2">
+            <div className="flex">
               {menuList.map((item) => {
                 return (
                   <NavLink
