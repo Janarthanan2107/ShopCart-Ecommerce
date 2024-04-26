@@ -41,16 +41,20 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-100 text-gray-800">
+    <footer className="bg-gray-800 text-gray-100">
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {footerSections.map((section, index) => (
             <div className="col-span-2 sm:col-span-1" key={index}>
-              <h2 className="text-lg font-semibold mb-4">{section.header}</h2>
+              <h2 className="text-lg font-semibold mb-4">
+                <span className="border-b-2 pb-2 border-gray-500">{section.header}</span>
+              </h2>
               <ul className="space-y-2 text-sm">
                 {section.links.map((link, index) => (
-                  <li key={index} className="hover:text-violet-500">
-                    <a href={link.url}>{link.name}</a>
+                  <li key={index}>
+                    <a href={link.url} className="hover:text-violet-400">
+                      {link.name}
+                    </a>
                   </li>
                 ))}
               </ul>

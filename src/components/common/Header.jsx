@@ -1,36 +1,41 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import { FaShopify } from "react-icons/fa";
+import { BiSolidCategory } from "react-icons/bi";
+import { IoCall } from "react-icons/io5";
+import { FaCartShopping } from "react-icons/fa6";
 
 function Header() {
   const menuList = [
     {
       id: 1,
       name: "Home",
+      icon: <FaHome />,
       link: "/",
     },
     {
       id: 2,
       name: "Shop",
+      icon: <FaShopify />,
       link: "/shop",
     },
     {
       id: 3,
       name: "Categories",
+      icon: <BiSolidCategory />,
       link: "/categories",
     },
     {
       id: 4,
-      name: "About Us",
-      link: "/aboutUs",
-    },
-    {
-      id: 5,
       name: "Contact Us",
+      icon: <IoCall />,
       link: "/contactUs",
     },
     {
-      id: 6,
+      id: 5,
       name: "Cart",
+      icon: <FaCartShopping />,
       link: "/cart",
     },
   ];
@@ -109,8 +114,8 @@ function Header() {
                     to={item.link}
                     className={({ isActive }) =>
                       isActive
-                        ? "flex items-center p-2 -mb-1 border-b-2 hover:dark:text-violet-600 hover:dark:border-violet-600 font-semibold text-violet-600"
-                        : "flex items-center p-2 -mb-1 border-b-2 hover:dark:text-violet-600 hover:dark:border-violet-600"
+                        ? "flex items-center p-2 -mb-1 border-b-2 bg-violet-200 rounded-lg hover:dark:text-violet-600 hover:dark:border-violet-600 font-semibold text-violet-600"
+                        : "fl0 rounded-lgx items-center p-2 -mb-1 hover:dark:text-violet-600 hover:dark:border-violet-600"
                     }
                     onClick={closeMenu}
                   >
@@ -134,7 +139,7 @@ function Header() {
 
           {/* Desktop view menu */}
           <div className="items-center flex-shrink-0 hidden lg:flex">
-            <div>
+            <div className="flex -mt-2">
               {menuList.map((item) => {
                 return (
                   <NavLink
@@ -142,11 +147,14 @@ function Header() {
                     key={item.id}
                     className={({ isActive }) =>
                       isActive
-                        ? "m-3 p-4 -mb-1 border-b-2 hover:dark:text-violet-600 hover:dark:border-violet-600 font-semibold text-violet-600"
-                        : "m-3 p-4 -mb-1 border-b-2 hover:dark:text-violet-600 hover:dark:border-violet-600"
+                        ? "m-3 p-4 border-b-2 hover:dark:text-violet-600 hover:dark:border-violet-600 font-semibold text-violet-600 border-violet-600"
+                        : "m-3 p-4 border-b-2 hover:dark:text-violet-600 hover:dark:border-violet-600"
                     }
                   >
-                    {item.name}
+                    <span className="flex items-center gap-2">
+                      {item.icon}
+                      {item.name}
+                    </span>
                   </NavLink>
                 );
               })}
