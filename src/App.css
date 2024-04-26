@@ -1,7 +1,19 @@
-.nav-profile{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: indigo;
-    cursor: pointer;
-}
+/* ----- CHANGE THE SCROLL BAR DESIGN ----- */
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 25px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #7c3aed;
+    border-radius: 30px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #520bcc;
+  }
+  

@@ -13,6 +13,9 @@ import "../../assets/styles/swiper.css";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
+import { GiQueenCrown } from "react-icons/gi";
+import { BiSolidCategory } from "react-icons/bi";
+
 const Home = () => {
   const [products, setProducts] = useState(data);
 
@@ -82,64 +85,127 @@ const Home = () => {
         </div>
       </section>
 
+      {/* alert */}
+      <div className="p-6 py-12 dark:bg-violet-600 dark:text-gray-50">
+        <div className="container mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-between">
+            <h2 className="text-center text-6xl tracking-tighter font-bold">
+              Up to
+              <br className="sm:hidden" />
+              50% Off
+            </h2>
+            <div className="space-x-2 text-center py-2 lg:py-0">
+              <span>Plus free shipping! Use code:</span>
+              <span className="font-bold text-lg">Shopify2103</span>
+            </div>
+            <a
+              href="/shop"
+              rel="noreferrer noopener"
+              className="px-5 mt-4 lg:mt-0 py-3 rounded-md border block dark:bg-gray-900 dark:text-gray-50 dark:border-gray-600"
+            >
+              Shop Now
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* swiper */}
-      <Swiper
-        slidesPerView={2}
-        spaceBetween={30}
-        centeredSlides={true}
-        freeMode={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        breakpoints={{
-          "@0.00": {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          "@0.75": {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          "@1.00": {
-            slidesPerView: 3,
-            spaceBetween: 40,
-          },
-          "@1.50": {
-            slidesPerView: 4,
-            spaceBetween: 50,
-          },
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        rewind={true}
-        loop={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
-      >
+      <section className="py dark:bg-white dark:text-gray-900">
+        <div className="container mx-auto flex flex-col justify-around p-4 text-center lg:text-start md:p-10 lg:flex-col">
+          <div className="flex flex-col justify-center lg:mx-24 lg:text-left">
+            <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600">
+              Our products
+            </p>
+            <h1 className="py-2 text-3xl font-medium leading-tight title-font">
+              <span className="flex items-center gap-3 pb-2">
+                Best selling products{" "}
+                <GiQueenCrown className="text-violet-500" />
+              </span>
+            </h1>
+          </div>
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={30}
+            centeredSlides={true}
+            freeMode={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              "@0.00": {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              "@0.75": {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              "@1.00": {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              "@1.50": {
+                slidesPerView: 4,
+                spaceBetween: 50,
+              },
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            rewind={true}
+            loop={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {uniqueCategories.map((item) => {
+              return (
+                <SwiperSlide>
+                  <div className="w-full">
+                    <img src={item.img} alt={item.name} />
+                    <h1>{item.name}</h1>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+      </section>
+
+      {/* category */}
+      <section className="py dark:bg-white dark:text-gray-900">
+        <div className="container mx-auto flex flex-col justify-around p-4 text-center lg:text-start md:p-10 lg:flex-col">
+          <div className="flex flex-col justify-center lg:mx-24 lg:text-left">
+            <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600 flex gap-2 items-center">
+              Available categories <BiSolidCategory />
+            </p>
+          </div>
+        </div>
+      </section>
+      <div className="container mx-auto flex flex-row justify-around pb-8 w-[90%]">
         {uniqueCategories.map((item) => {
           return (
-            <SwiperSlide>
-              <div className="w-full">
-                <img src={item.img} alt={item.name} />
-                <h1>{item.name}</h1>
+            <div className="flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 hover:border-violet-600 hover:font-semibold">
+              <div className="flex flex-col p-4">
+                <span className="text-[13px]">{item.category}</span>
               </div>
-            </SwiperSlide>
+            </div>
           );
         })}
-      </Swiper>
+      </div>
+
+      <hr />
 
       {/* product review */}
       <section className="py-6 dark:bg-white dark:text-gray-900">
         <div className="container mx-auto flex flex-col justify-around p-4 text-center lg:text-start md:p-10 lg:flex-col">
           <div className="flex flex-col justify-center lg:mx-24 lg:text-left">
             <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600">
-              Some of our products
+              Some of our
             </p>
             <h1 className="py-2 text-3xl font-medium leading-tight title-font">
-              <span className=" border-b-2">Reviews & Thoughts</span>
+              <span>Reviews by customer</span>
             </h1>
           </div>
           {/* some products */}
@@ -147,7 +213,7 @@ const Home = () => {
             {uniqueCategories.map((item) => {
               return (
                 <div
-                  className="flex flex-col m-3 max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800"
+                  className="flex flex-col m-3 max-w-72 p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800"
                   key={item.id}
                 >
                   <div className="flex space-x-4">
@@ -173,12 +239,14 @@ const Home = () => {
                     <img
                       src={item.img}
                       alt=""
-                      className="object-cover w-full mb-4 h-60 sm:h-72 dark:bg-gray-500"
+                      className="object-cover w-full mb-4 h-60 sm:h-48 rounded-md dark:bg-gray-500"
                     />
-                    <h2 className="mb-1 text-xl font-semibold">{item.name}</h2>
+                    <h2 className="mb-1 text-[15px] font-semibold">
+                      {item.name}
+                    </h2>
                     <p className="text-sm dark:text-gray-600">
                       The best product i bought in online platform called
-                      shopCart it is the place for all the mens fashion...
+                      shopCart mens fashion...
                     </p>
                   </div>
                   <div className="flex flex-wrap justify-between">
@@ -250,7 +318,7 @@ const Home = () => {
           <a
             rel="noopener noreferrer"
             href="/shop"
-            className="px-8 py-3 mx-auto text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+            className="mb-8 px-8 py-3 mx-auto text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
           >
             Shop Now
           </a>
@@ -260,7 +328,7 @@ const Home = () => {
       {/* dealers */}
       <section className="py-6 bg-gray-100 text-gray-800">
         <div className="container flex flex-col items-center justify-center p-4 mx-auto space-y-8 sm:p-10">
-          <h1 className="text-4xl font-bold leading-none text-center sm:text-5xl">
+          <h1 className="text-2xl font-bold leading-none text-center sm:text-2xl">
             Our designing & Dealers team
           </h1>
           <p className="max-w-2xl text-center text-gray-600">
@@ -279,7 +347,7 @@ const Home = () => {
                   className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full bg-gray-500"
                   src={`https://source.unsplash.com/100x100/?portrait?${index}`}
                 />
-                <p className="text-xl font-semibold leading-tight">
+                <p className="text-[15px] font-semibold leading-tight">
                   {member.name}
                 </p>
                 <p className="text-gray-600">{member.role}</p>

@@ -4,6 +4,8 @@ import Root from "./routes/Root/Root";
 import NotFound from "./routes/NotFound/NotFound.jsx";
 import Home from "./routes/Home/Home.jsx";
 
+import "./App.css"
+
 const router = createBrowserRouter([
   {
     path: "/",
