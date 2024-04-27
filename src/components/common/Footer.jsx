@@ -44,14 +44,13 @@ function Footer() {
   return (
     <footer className="bg-gray-800 text-gray-100">
       <div className="container mx-auto py-8 px-4">
-        <a
-          rel="noopener noreferrer"
-          href="/"
-          aria-label="Back to homepage"
-          className="flex items-center p-2 mb-3"
-        >
-          <img src={logo} alt="Logo"></img>
-        </a>
+        <p className="flex items-center p-2 mb-3">
+          <img
+            src={logo}
+            alt="Logo"
+            className="shadow-sm cursor-pointer bg-slate-50"
+          ></img>
+        </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {footerSections.map((section, index) => (
             <div className="col-span-2 sm:col-span-1" key={index}>
