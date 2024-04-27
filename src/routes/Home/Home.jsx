@@ -203,7 +203,7 @@ const Home = () => {
           >
             {uniqueCategories.map((item) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={item.id}>
                   <div className="w-full">
                     <img src={item.img} alt={item.name} />
                     <h1>{item.name}</h1>
@@ -365,13 +365,15 @@ const Home = () => {
               );
             })}
           </div>
-          <a
-            rel="noopener noreferrer"
-            href="/shop"
-            className="mb-8 px-8 py-3 mx-auto text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
-          >
-            Shop Now
-          </a>
+          <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+            <a
+              rel="noopener noreferrer"
+              href="/shop"
+              className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50"
+            >
+              Shop Now
+            </a>
+          </div>
         </div>
       </section>
 
