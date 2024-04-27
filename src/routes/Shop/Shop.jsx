@@ -140,7 +140,7 @@ const Shop = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto flex flex-col justify-around pb-8 w-[90%] lg:flex-row">
+        <div className="container mx-auto flex flex-col flex-wrap justify-around pb-8 w-[90%] lg:flex-row">
           {category.map((item, index) => {
             return (
               <div
