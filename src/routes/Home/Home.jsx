@@ -3,6 +3,8 @@ import data from "../../constants/products.json";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import model from "../../assets/images/banner/fashion-forward-model.png";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -117,7 +119,7 @@ const Home = () => {
           </div>
           <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
             <img
-              src="../../assets/images/banner/fashion-forward-model.png"
+              src={model}
               alt="Fashion Forward Model"
               className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128"
             />
