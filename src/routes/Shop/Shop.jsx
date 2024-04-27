@@ -140,21 +140,27 @@ const Shop = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto flex flex-wrap justify-around pb-8 w-[90%] lg:flex-row">
+        <div className="container mx-auto flex flex-col flex-wrap justify-around pb-8 w-[90%] lg:flex-row">
           {category.map((item, index) => {
             return (
               <div
                 key={index}
-                className={`flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 ${
+                className={`flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] text-xl font-medium dark:bg-gray-50 dark:divide-gray-300 cursor-pointer border-b-4 ${
                   selectedCategory === item.name
-                    ? "border-violet-600 font-semibold"
-                    : "hover:border-violet-600"
+                    ? "border-violet-600 font-semibold dark:bg-gray-400 text-white"
+                    : "hover:border-violet-600 dark:text-slate-900"
                 }`}
                 onClick={() => handleCategoryClick(item.name)}
               >
                 <div className="flex items-center gap-2 p-4">
                   <span className="text-[13px]">{item.name}</span>
-                  <span className="text-[18px] text-violet-600">
+                  <span
+                    className={`text-[18px] ${
+                      selectedCategory === item.name
+                        ? "text-white"
+                        : " text-violet-600"
+                    }`}
+                  >
                     {item.icon}
                   </span>
                 </div>
@@ -164,9 +170,7 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* filter */}
-
-      {/* products */}
+      {/*filter && products */}
       <section className="dark:bg-white dark:text-gray-900">
         <div className="container mx-auto flex flex-col justify-around p-4 text-center lg:text-start md:p-10 lg:flex-col">
           <div className="flex justify-between items-center mb-3 flex-col lg:flex-row">
@@ -330,129 +334,124 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Sorting Options */}
-
-      {/* Pagination */}
-
       {/* Promotions */}
       <section className="py-6 sm:py-12 dark:bg-gray-100 dark:text-gray-800">
-  <div className="container p-6 mx-auto space-y-8">
-    <div className="space-y-2 text-center">
-      <h2 className="text-3xl font-bold">Exclusive Offers</h2>
-      <p className="font-serif text-sm dark:text-gray-600">
-        Explore these limited-time deals!
-      </p>
-    </div>
-    <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
-      {/* First Promotion Item */}
-      <article className="flex flex-col dark:bg-gray-50">
-        <a
-          rel="noopener noreferrer"
-          href="#"
-          aria-label="Limited Time Offer"
-        >
-          <img
-            alt="Limited Time Offer"
-            className="object-cover w-full h-52 dark:bg-gray-500"
-            src="https://source.unsplash.com/200x200/?promotion?1"
-          />
-        </a>
-        <div className="flex flex-col flex-1 p-6">
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            aria-label="Limited Time Offer"
-          ></a>
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            className="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
-          >
-            Special Deals
-          </a>
-          <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-            20% Off on Selected Items
-          </h3>
-          <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600">
-            <span>Valid until April 30, 2024</span>
-            <span>1.8K views</span>
+        <div className="container p-6 mx-auto space-y-8">
+          <div className="space-y-2 text-center">
+            <h2 className="text-3xl font-bold">Exclusive Offers</h2>
+            <p className="font-serif text-sm dark:text-gray-600">
+              Explore these limited-time deals!
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+            {/* First Promotion Item */}
+            <article className="flex flex-col dark:bg-gray-50">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Limited Time Offer"
+              >
+                <img
+                  alt="Limited Time Offer"
+                  className="object-cover w-full h-52 dark:bg-gray-500"
+                  src="https://source.unsplash.com/200x200/?promotion?1"
+                />
+              </a>
+              <div className="flex flex-col flex-1 p-6">
+                <a
+                  rel="noopener noreferrer"
+                  href="#"
+                  aria-label="Limited Time Offer"
+                ></a>
+                <a
+                  rel="noopener noreferrer"
+                  href="#"
+                  className="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >
+                  Special Deals
+                </a>
+                <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
+                  20% Off on Selected Items
+                </h3>
+                <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600">
+                  <span>Valid until April 30, 2024</span>
+                  <span>1.8K views</span>
+                </div>
+              </div>
+            </article>
+            {/* Second Promotion Item */}
+            <article className="flex flex-col dark:bg-gray-50">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Limited Time Offer"
+              >
+                <img
+                  alt="Limited Time Offer"
+                  className="object-cover w-full h-52 dark:bg-gray-500"
+                  src="https://source.unsplash.com/200x200/?promotion?2"
+                />
+              </a>
+              <div className="flex flex-col flex-1 p-6">
+                <a
+                  rel="noopener noreferrer"
+                  href="#"
+                  aria-label="Limited Time Offer"
+                ></a>
+                <a
+                  rel="noopener noreferrer"
+                  href="#"
+                  className="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >
+                  Flash Sale
+                </a>
+                <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
+                  Up to 50% Off on Electronics
+                </h3>
+                <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600">
+                  <span>Valid for 48 hours only</span>
+                  <span>3.5K views</span>
+                </div>
+              </div>
+            </article>
+            {/* Third Promotion Item */}
+            <article className="flex flex-col dark:bg-gray-50">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Limited Time Offer"
+              >
+                <img
+                  alt="Limited Time Offer"
+                  className="object-cover w-full h-52 dark:bg-gray-500"
+                  src="https://source.unsplash.com/200x200/?promotion?3"
+                />
+              </a>
+              <div className="flex flex-col flex-1 p-6">
+                <a
+                  rel="noopener noreferrer"
+                  href="#"
+                  aria-label="Limited Time Offer"
+                ></a>
+                <a
+                  rel="noopener noreferrer"
+                  href="#"
+                  className="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >
+                  Clearance Sale
+                </a>
+                <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
+                  Big Discounts on Fashion Items
+                </h3>
+                <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600">
+                  <span>Ends soon!</span>
+                  <span>2.2K views</span>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
-      </article>
-      {/* Second Promotion Item */}
-      <article className="flex flex-col dark:bg-gray-50">
-        <a
-          rel="noopener noreferrer"
-          href="#"
-          aria-label="Limited Time Offer"
-        >
-          <img
-            alt="Limited Time Offer"
-            className="object-cover w-full h-52 dark:bg-gray-500"
-            src="https://source.unsplash.com/200x200/?promotion?2"
-          />
-        </a>
-        <div className="flex flex-col flex-1 p-6">
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            aria-label="Limited Time Offer"
-          ></a>
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            className="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
-          >
-            Flash Sale
-          </a>
-          <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-            Up to 50% Off on Electronics
-          </h3>
-          <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600">
-            <span>Valid for 48 hours only</span>
-            <span>3.5K views</span>
-          </div>
-        </div>
-      </article>
-      {/* Third Promotion Item */}
-      <article className="flex flex-col dark:bg-gray-50">
-        <a
-          rel="noopener noreferrer"
-          href="#"
-          aria-label="Limited Time Offer"
-        >
-          <img
-            alt="Limited Time Offer"
-            className="object-cover w-full h-52 dark:bg-gray-500"
-            src="https://source.unsplash.com/200x200/?promotion?3"
-          />
-        </a>
-        <div className="flex flex-col flex-1 p-6">
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            aria-label="Limited Time Offer"
-          ></a>
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            className="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
-          >
-            Clearance Sale
-          </a>
-          <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-            Big Discounts on Fashion Items
-          </h3>
-          <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600">
-            <span>Ends soon!</span>
-            <span>2.2K views</span>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
+      </section>
     </div>
   );
 };

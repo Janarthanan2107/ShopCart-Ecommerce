@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../../assets/images/logo/logo.png";
 
 function Footer() {
   const footerSections = [
@@ -43,11 +44,21 @@ function Footer() {
   return (
     <footer className="bg-gray-800 text-gray-100">
       <div className="container mx-auto py-8 px-4">
+        <a
+          rel="noopener noreferrer"
+          href="/"
+          aria-label="Back to homepage"
+          className="flex items-center p-2 mb-3"
+        >
+          <img src={logo} alt="Logo"></img>
+        </a>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {footerSections.map((section, index) => (
             <div className="col-span-2 sm:col-span-1" key={index}>
               <h2 className="text-lg font-semibold mb-4">
-                <span className="border-b-2 pb-2 border-gray-500">{section.header}</span>
+                <span className="border-b-2 pb-2 border-gray-500">
+                  {section.header}
+                </span>
               </h2>
               <ul className="space-y-2 text-sm">
                 {section.links.map((link, index) => (
@@ -63,8 +74,8 @@ function Footer() {
         </div>
         <div className="mt-8 text-sm text-center">
           <p>
-            &copy; {new Date().getFullYear()} Your E-commerce Website. All
-            Rights Reserved.
+            &copy; {new Date().getFullYear()} Your SHOPCART. All Rights
+            Reserved.
           </p>
         </div>
       </div>

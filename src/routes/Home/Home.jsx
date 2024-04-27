@@ -365,7 +365,7 @@ const Home = () => {
               );
             })}
           </div>
-          <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+          <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-center">
             <a
               rel="noopener noreferrer"
               href="/shop"
