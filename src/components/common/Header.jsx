@@ -5,6 +5,7 @@ import { FaShopify } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import { IoCall } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
+import logo from "../../assets/images/logo/logo.png";
 
 function Header() {
   const menuList = [
@@ -60,7 +61,7 @@ function Header() {
             aria-label="Back to homepage"
             className="flex items-center p-2"
           >
-            <img src="../../assets/images/logo/logo.png" alt="Logo"></img>
+            <img src={logo} alt="Logo"></img>
           </a>
           <div className="lg:hidden">
             <button className="p-4" onClick={toggleMenu}>
