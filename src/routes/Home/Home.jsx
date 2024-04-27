@@ -226,7 +226,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="container mx-auto flex flex-row justify-around pb-8 w-[90%]">
+        <div className="container mx-auto flex flex-row flex-wrap justify-around pb-8 w-[90%]">
           {category.map((item, index) => {
             return (
               <div
