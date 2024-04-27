@@ -60,7 +60,7 @@ function Header() {
             aria-label="Back to homepage"
             className="flex items-center p-2"
           >
-            <img src="src\assets\images\logo\logo.png" alt="Logo"></img>
+            <img src="../../assets/images/logo/logo.png" alt="Logo"></img>
           </a>
           <div className="lg:hidden">
             <button className="p-4" onClick={toggleMenu}>
