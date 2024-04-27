@@ -13,8 +13,17 @@ import "../../assets/styles/swiper.css";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import { GiQueenCrown } from "react-icons/gi";
+import {
+  GiBilledCap,
+  GiBoots,
+  GiQueenCrown,
+  GiSchoolBag,
+} from "react-icons/gi";
 import { BiSolidCategory } from "react-icons/bi";
+import { GiRunningShoe } from "react-icons/gi";
+import { PiPantsFill } from "react-icons/pi";
+import { SlEarphonesAlt } from "react-icons/sl";
+import { FaBottleWater } from "react-icons/fa6";
 
 const Home = () => {
   const [products, setProducts] = useState(data);
@@ -26,6 +35,37 @@ const Home = () => {
     { name: "Emily Brown", role: "Web Marketing" },
     { name: "Alex Lee", role: "Creative Director" },
     { name: "Sarah Davis", role: "Art Director" },
+  ];
+
+  const category = [
+    {
+      name: "Men's Sneaker",
+      icon: <GiRunningShoe />,
+    },
+    {
+      name: "Men's Pants",
+      icon: <PiPantsFill />,
+    },
+    {
+      name: "Men's Boot",
+      icon: <GiBoots />,
+    },
+    {
+      name: "Bag",
+      icon: <GiSchoolBag />,
+    },
+    {
+      name: "Cap",
+      icon: <GiBilledCap />,
+    },
+    {
+      name: "Earphones",
+      icon: <SlEarphonesAlt />,
+    },
+    {
+      name: "Bottle",
+      icon: <FaBottleWater />,
+    },
   ];
 
   // Function to filter out duplicate categories
@@ -153,7 +193,7 @@ const Home = () => {
             pagination={{
               clickable: true,
             }}
-            navigation={true}
+            // navigation={true}
             rewind={true}
             loop={true}
             modules={[Autoplay, Pagination, Navigation]}
@@ -174,26 +214,34 @@ const Home = () => {
       </section>
 
       {/* category */}
-      <section className="py dark:bg-white dark:text-gray-900">
-        <div className="container mx-auto flex flex-col justify-around p-4 text-center lg:text-start md:p-10 lg:flex-col">
-          <div className="flex flex-col justify-center lg:mx-24 lg:text-left">
-            <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600 flex gap-2 items-center">
-              Available categories <BiSolidCategory />
-            </p>
+      <section>
+        <div className="py dark:bg-white dark:text-gray-900">
+          <div className="container mx-auto flex flex-col justify-around p-4 text-center lg:text-start md:p-10 lg:flex-col">
+            <div className="flex flex-col justify-center lg:mx-24 lg:text-left">
+              <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600 flex gap-2 items-center">
+                Available categories <BiSolidCategory />
+              </p>
+            </div>
           </div>
         </div>
-      </section>
-      <div className="container mx-auto flex flex-row justify-around pb-8 w-[90%]">
-        {uniqueCategories.map((item) => {
-          return (
-            <div className="flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 hover:border-violet-600 hover:font-semibold">
-              <div className="flex flex-col p-4">
-                <span className="text-[13px]">{item.category}</span>
+        <div className="container mx-auto flex flex-row justify-around pb-8 w-[90%]">
+          {category.map((item, index) => {
+            return (
+              <div
+                className="flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 hover:border-violet-600 hover:font-semibold"
+                key={index}
+              >
+                <div className="flex items-center gap-2 p-4">
+                  <span className="text-[13px]">{item.name}</span>
+                  <span className="text-[18px] text-violet-600">
+                    {item.icon}
+                  </span>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </section>
 
       <hr />
 

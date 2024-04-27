@@ -51,7 +51,7 @@ function Header() {
   };
 
   return (
-    <div>
+    <div className="fixed w-full top-0 left-0 z-50">
       <header className="p-4 dark:bg-gray-100 dark:text-gray-800">
         <div className="container flex justify-between items-center h-16 mx-auto">
           <a

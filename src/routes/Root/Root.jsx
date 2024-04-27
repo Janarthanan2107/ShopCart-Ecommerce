@@ -7,7 +7,9 @@ function Root() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className="mt-[95px]">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
