@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import data from "../../constants/products.json";
+import model from "../../assets/images/banner/fashion-forward-model.png";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import model from "../../assets/images/banner/fashion-forward-model.png";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import "../../assets/styles/swiper.css";
-
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
@@ -26,9 +22,20 @@ import { GiRunningShoe } from "react-icons/gi";
 import { PiPantsFill } from "react-icons/pi";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { FaBottleWater } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState(data);
+
+  let navigate = useNavigate();
+
+  const handleNavigateToShop = () => {
+    navigate("/shop");
+  };
+
+  const handleNavigateToCateLog = () => {
+    navigate("/categories");
+  };
 
   const members = [
     { name: "John Doe", role: "Product Dealer" },
@@ -101,20 +108,18 @@ const Home = () => {
               Find the perfect style for any occasion.
             </p>
             <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-              <a
-                rel="noopener noreferrer"
-                href="/shop"
-                className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50"
+              <p
+                className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 cursor-pointer"
+                onClick={handleNavigateToShop}
               >
                 Shop Now
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="categories"
-                className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-800"
+              </p>
+              <p
+                className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-800 cursor-pointer"
+                onClick={handleNavigateToCateLog}
               >
                 View Catalog
-              </a>
+              </p>
             </div>
           </div>
           <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
@@ -133,20 +138,16 @@ const Home = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <h2 className="text-center text-6xl tracking-tighter font-bold">
               Up to
-              <br className="sm:hidden" />
-              50% Off
+              <br className="sm:hidden" /> 50% Off
+            </h2>
+            <h2 className="-mt-5 text-center text-6xl tracking-tighter font-bold animate-ping hidden lg:block">
+              Shop
+              <br className="sm:hidden" /> now
             </h2>
             <div className="space-x-2 text-center py-2 lg:py-0">
               <span>Plus free shipping! Use code:</span>
               <span className="font-bold text-lg">Shopify2103</span>
             </div>
-            <a
-              href="/shop"
-              rel="noreferrer noopener"
-              className="px-5 mt-4 lg:mt-0 py-3 rounded-md border block dark:bg-gray-900 dark:text-gray-50 dark:border-gray-600"
-            >
-              Shop Now
-            </a>
           </div>
         </div>
       </div>
@@ -233,7 +234,7 @@ const Home = () => {
                 className="flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 hover:border-violet-600 hover:font-semibold"
                 key={index}
               >
-                <div className="flex items-center gap-2 p-4">
+                <div className="flex items-center gap-2 font-semibold p-4">
                   <span className="text-[13px]">{item.name}</span>
                   <span className="text-[18px] text-violet-600">
                     {item.icon}
@@ -254,7 +255,7 @@ const Home = () => {
             <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600">
               Some of our
             </p>
-            <h1 className="py-2 text-3xl font-medium leading-tight title-font">
+            <h1 className="py-2 text-2xl font-medium leading-tight title-font">
               <span>Reviews by customer</span>
             </h1>
           </div>
@@ -273,13 +274,7 @@ const Home = () => {
                       className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500"
                     />
                     <div className="flex flex-col space-y-1">
-                      <a
-                        rel="noopener noreferrer"
-                        href="#"
-                        className="text-sm font-semibold"
-                      >
-                        Michael Johnson
-                      </a>
+                      <p className="text-sm font-semibold">Michael Johnson</p>
                       <span className="text-xs dark:text-gray-600">
                         4 hours ago
                       </span>
@@ -366,13 +361,12 @@ const Home = () => {
             })}
           </div>
           <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-center">
-            <a
-              rel="noopener noreferrer"
-              href="/shop"
-              className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50"
+            <p
+              className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 cursor-pointer"
+              onClick={handleNavigateToShop}
             >
               Shop Now
-            </a>
+            </p>
           </div>
         </div>
       </section>
@@ -416,7 +410,7 @@ const Home = () => {
             <p className="mb-1 text-sm font-medium tracking-widest uppercase dark:text-violet-600">
               Discover the Ultimate
             </p>
-            <h1 className="py-2 text-3xl font-medium leading-tight title-font">
+            <h1 className="py-2 text-2xl font-medium leading-tight title-font">
               Experience Cleanse Reinvented - Shop Now
             </h1>
           </div>

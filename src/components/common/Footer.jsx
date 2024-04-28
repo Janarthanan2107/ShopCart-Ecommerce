@@ -48,7 +48,7 @@ function Footer() {
           <img
             src={logo}
             alt="Logo"
-            className="shadow-sm cursor-pointer bg-slate-50"
+            className="cursor-pointer bg-slate-50"
           ></img>
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

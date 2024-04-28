@@ -6,6 +6,7 @@ import Home from "./routes/Home/Home.jsx";
 import Shop from "./routes/Shop/Shop.jsx";
 
 import "./App.css";
+import ProductDetails from "./components/product/ProductDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
         element: <Shop />,
       },
       {
-        path: "shop/:name",
-        element: <h1>Shop</h1>,
+        path: "shop/:id",
+        element: <ProductDetails />,
       },
       {
         path: "categories",
