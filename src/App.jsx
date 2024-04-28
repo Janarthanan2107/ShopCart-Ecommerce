@@ -7,6 +7,7 @@ import Shop from "./routes/Shop/Shop.jsx";
 
 import "./App.css";
 import ProductDetails from "./components/product/ProductDetails.jsx";
+import Cart from "./components/cart/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <h1>cart</h1>,
+        element: <Cart />,
       },
     ],
   },

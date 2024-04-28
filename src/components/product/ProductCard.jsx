@@ -1,9 +1,11 @@
 import React from "react";
 import { FaCartArrowDown, FaHeart } from "react-icons/fa6";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../slice/cartSlice";
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item, notify }) => {
   let navigate = useNavigate();
 
   const handleProductDetailsClick = (id) => {
@@ -11,6 +13,13 @@ const ProductCard = ({ item }) => {
     // Scroll to the top of the page
     window.scrollTo(0, 0);
   };
+
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addToCart(item));
+    notify();
+  };
+
   return (
     <div
       key={item.id}
@@ -24,12 +33,12 @@ const ProductCard = ({ item }) => {
       onMouseLeave={(e) =>
         (e.currentTarget.querySelector(".add-to-cart").style.display = "none")
       }
-      onClick={() => handleProductDetailsClick(item.id)}
     >
       <img
         src={item.img}
         alt={item.name}
         className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
+        onClick={() => handleProductDetailsClick(item.id)}
       />
       <div className="mt-6">
         <span className="block text-xs font-medium tracking-widest uppercase dark:text-violet-600">
@@ -48,7 +57,10 @@ const ProductCard = ({ item }) => {
           </div>
         </div>
         <div className="mt-2">
-          <p className="add-to-cart lg:hidden transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 bg-violet-500 text-white font-semibold rounded-full p-2 absolute top-8 left-8">
+          <p
+            className="add-to-cart lg:hidden transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 bg-violet-500 text-white font-semibold rounded-full p-2 absolute top-8 left-8"
+            onClick={handleAddToCart}
+          >
             <span className="flex justify-center items-center gap-2">
               <FaCartArrowDown />
             </span>

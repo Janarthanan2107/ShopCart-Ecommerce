@@ -12,6 +12,7 @@ import LoadingComponent from "../../components/resuable/LoadingComponent";
 import { IoGiftOutline } from "react-icons/io5";
 import Tag from "../../components/resuable/Tag";
 import PromotionCard from "../../components/resuable/PromotionCard";
+import { ToastContainer, toast } from "react-toastify";
 
 const Shop = () => {
   const category = [
@@ -124,8 +125,11 @@ const Shop = () => {
     return isInSelectedCategory && isInSearchTerm && isInPriceRange;
   });
 
+  const notify = () => toast("Product added successfully !");
+
   return (
     <div>
+      <ToastContainer stacked />
       {/* banner */}
       <div className="px-8 py-2 dark:bg-violet-200 dark:text-gray-800">
         <div className="flex items-center mx-auto container justify-center md:justify-between py-2">
@@ -244,7 +248,6 @@ const Shop = () => {
                   placeholder="Search by name..."
                   value={searchTerm}
                   onChange={handleSearchInputChange}
-                  autoFocus
                   className="w-32 mt-2 py-3 pl-10 text-sm rounded-md sm:w-96 focus:outline-none dark:bg-gray-200 dark:text-gray-800 focus:dark:bg-gray-100 focus:border-violet-600"
                 />
               </div>
@@ -270,10 +273,7 @@ const Shop = () => {
               ) : (
                 <div className="flex flex-wrap justify-around mb-[2rem]">
                   {filteredProducts.map((item) => (
-                    <ProductCard
-                      item={item}
-                      key={item.id}
-                    />
+                    <ProductCard item={item} key={item.id} notify={notify} />
                   ))}
                 </div>
               )}
