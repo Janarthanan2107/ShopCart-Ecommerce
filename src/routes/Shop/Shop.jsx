@@ -125,7 +125,10 @@ const Shop = () => {
     return isInSelectedCategory && isInSearchTerm && isInPriceRange;
   });
 
-  const notify = () => toast("Product added successfully !");
+  const notify = () =>
+    toast.success("Product added to cart!", {
+      icon: "🚀",
+    });
 
   return (
     <div>

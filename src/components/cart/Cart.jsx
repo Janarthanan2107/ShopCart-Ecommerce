@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../../slice/cartSlice";
+import { IoClose } from "react-icons/io5";
+import { RxUpdate } from "react-icons/rx";
+import { RiCoupon2Fill } from "react-icons/ri";
+import { FaCheckCircle } from "react-icons/fa";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const [couponCode, setCouponCode] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState("");
-  
+
   const handleApplyCoupon = () => {
     // Apply coupon logic here
     // You can dispatch an action to apply the coupon or update the state accordingly
@@ -39,83 +43,134 @@ const Cart = () => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Your Shopping Cart</h2>
-      {cartItems.length === 0 ? (
-        <p className="text-gray-600 text-lg">Your cart is empty</p>
-      ) : (
-        <div>
-          <ul className="divide-y divide-gray-200">
+      <div className="grid grid-cols-4 gap-4 items-center w-full border-b-2 border-gray-200 pb-2 mb-2">
+        <p className="text-md font-semibold text-gray-500 text-center">
+          Product
+        </p>
+        <p className="text-md font-semibold text-gray-500 text-center">Price</p>
+        <p className="text-md font-semibold text-gray-500 text-center">
+          Quantity
+        </p>
+        <p className="text-md font-semibold text-gray-500 text-center">
+          Remove
+        </p>
+      </div>
+
+      <div>
+        {cartItems.length === 0 ? (
+          <div className="flex flex-col justify-center items-center gap-2 border-b-2 py-3">
+            <p className="text-gray-500 font-semibold text-center text-lg">
+              Your cart is empty
+            </p>
+            <button className="bg-violet-500 text-white px-6 py-3 rounded-md hover:bg-violet-600 focus:outline-none focus:bg-violet-600 flex items-center gap-2">
+              Shop now
+            </button>
+          </div>
+        ) : (
+          <>
             {cartItems.map((item) => (
-              <li key={item.id} className="flex items-center py-4">
-                <div className="flex-shrink-0 w-24 h-24 mr-4">
+              <div className="grid grid-cols-4 gap-4 items-center w-full border-b-2 py-2">
+                <div className="mr-4 flex gap-3 items-center">
                   <img
                     src={item.img}
                     alt={item.name}
-                    className="object-cover w-full h-full rounded-md"
+                    className="object-cover  w-24 h-24 rounded-md"
                   />
+                  <h3 className="font-semibold text-lg hidden lg:block">{item.name}</h3>
                 </div>
-                <div className="flex-grow">
-                  <div className="font-semibold text-lg">{item.name}</div>
-                  <div className="text-gray-500">Price: ${item.price}</div>
-                  <div className="flex items-center mt-2">
+                <div className="text-gray-500 text-center">
+                  Price: ${item.price}
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center">
                     <button
-                      className="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+                      className="text-white bg-red-400 h-[2rem] w-[2rem] rounded-full font-semibold text-sm hover:-translate-y-1 transition-transform"
                       onClick={() => handleUpdateQuantity(item.id, -1)}
                     >
                       -
                     </button>
-                    <span className="mx-2 text-xl">{item.quantity}</span>
+                    <span className="mx-4 font-medium">{item.quantity}</span>
                     <button
-                      className="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+                      className="text-white bg-orange-400 h-[2rem] w-[2rem] rounded-full font-semibold text-sm hover:-translate-y-1 transition-transform"
                       onClick={() => handleUpdateQuantity(item.id, 1)}
                     >
                       +
                     </button>
                   </div>
-                  <button
-                    className="text-red-500 hover:text-red-700 focus:outline-none focus:text-red-700 mt-2"
-                    onClick={() => handleRemoveFromCart(item.id)}
-                  >
-                    Remove
-                  </button>
                 </div>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8">
-            <div className="flex justify-between mb-4">
-              <div className="text-lg font-semibold">Subtotal:</div>
-              <div className="text-lg">${subtotal.toFixed(2)}</div>
-            </div>
-            {couponApplied && (
-              <div className="flex justify-between mb-4">
-                <div className="text-lg font-semibold">Discount (50%):</div>
-                <div className="text-lg">
-                  -${(subtotal - subtotalAfterDiscount).toFixed(2)}
+                <div className="flex justify-center">
+                  <IoClose
+                    className="text-red-500 text-xl cursor-pointer h-[1.55rem] w-[1.55rem] rounded-full hover:bg-red-400 hover:text-white hover:-translate-y-1 transition-transform transition-all"
+                    onClick={() => handleRemoveFromCart(item.id)}
+                  />
                 </div>
               </div>
-            )}
-            <div className="flex justify-between">
-              <div className="text-xl font-bold">Grand Total:</div>
-              <div className="text-xl">${grandTotal.toFixed(2)}</div>
+            ))}
+          </>
+        )}
+      </div>
+
+      <div className="flex flex-col justify-between items-center lg:flex-row">
+        <div className="mt-4 mb-4 flex flex-col lg:flex-row items-center gap-2 lg:mr-4 lg:w-auto">
+          <input
+            type="text"
+            placeholder="Enter coupon code"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-gray-500 w-full text-gray-500"
+          />
+          <button
+            onClick={handleApplyCoupon}
+            className="bg-violet-500 text-white px-6 py-3 rounded-md hover:bg-violet-600 focus:outline-none focus:bg-violet-600 flex items-center gap-2 w-full"
+          >
+            <RiCoupon2Fill />
+            Apply Coupon
+          </button>
+        </div>
+        <button className="transition ease-in-out delay-150 bg-violet-500 hover:-translate-y-1 hover:scale-110 hover:bg-orange-400 duration-300 px-6 py-3 rounded-md text-white font-semibold flex gap-2 items-center mb-2 lg:mb-0">
+          <RxUpdate />
+          <span className="lg:block hidden">Update Cart</span>
+        </button>
+      </div>
+
+      <hr className="mt" />
+
+      <div className="flex lg:justify-end justify-center">
+        <div className="mt-5 border p-3 rounded-lg flex flex-col gap-2 w-full lg:w-96">
+          <h2 className="text-2xl text-black font-bold">Cart Totals</h2>
+          <div className="flex justify-between items-center mt-2">
+            <div className="text-lg font-medium text-gray-500">Subtotal:</div>
+            <div className="text-md text-gray-500">${subtotal.toFixed(2)}</div>
+          </div>
+          <div className="flex justify-between items-center mt-2">
+            <div className="text-lg font-medium text-gray-500 flex flex-col">
+              Discount (50%):{" "}
+              {!couponApplied ? (
+                <span className="text-red-400 text-xs">
+                  (No coupon available)
+                </span>
+              ) : (
+                <span className="text-green-400 text-xs">(Coupon applied)</span>
+              )}
+            </div>
+            <div className="text-md text-gray-500">
+              -${(subtotal - subtotalAfterDiscount).toFixed(2)}
             </div>
           </div>
-          <div className="mt-4">
-            <input
-              type="text"
-              placeholder="Enter coupon code"
-              value={couponCode}
-              onChange={(e) => setCouponCode(e.target.value)}
-              className="border border-gray-300 rounded-md px-4 py-2 mr-4 focus:outline-none focus:border-gray-500"
-            />
-            <button
-              onClick={handleApplyCoupon}
-              className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            >
-              Apply Coupon
-            </button>
+          <div className="flex justify-between items-center mt-2">
+            <div className="text-lg font-medium text-gray-500">
+              Grand Total:
+            </div>
+            <div className="text-md text-gray-800 font-semibold border-t-2">
+              ${grandTotal.toFixed(2)}
+            </div>
           </div>
+          <button className="transition ease-in-out delay-150 bg-violet-500 hover:bg-orange-400 duration-300 px-6 py-3 rounded-md text-white font-semibold flex gap-2 justify-center items-center mt-2 lg:mb-0 w-full">
+            <FaCheckCircle />
+            <span>Proceed to checkout</span>
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };

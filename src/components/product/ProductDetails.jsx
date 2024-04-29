@@ -30,7 +30,11 @@ const ProductDetails = () => {
   const [similarProducts, setSimilarProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const notify = () => toast("Product added successfully !");
+  const notify = () =>
+    toast.success("Product added successfully", {
+      icon: "🚀",
+    });
+
   const handleAddToCart = () => {
     dispatch(addToCart(product));
     notify();
@@ -65,7 +69,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <ToastContainer stacked/>
+      <ToastContainer stacked draggable/>
       <div className="py-6 px-6 mx-auto">
         {loading && <Skeleton />}
         {!loading && (
