@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../../slice/cartSlice";
 import { IoClose } from "react-icons/io5";
-import { RxUpdate } from "react-icons/rx";
 import { RiCoupon2Fill } from "react-icons/ri";
 import { FaCheckCircle } from "react-icons/fa";
+import CopyToClipboard from "../resuable/CopytoClipboard";
+import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -12,9 +15,10 @@ const Cart = () => {
   const [couponCode, setCouponCode] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
+  const [stripe, setStripe] = useState(null);
+  const [clientSecret, setClientSecret] = useState(null);
+
   const handleApplyCoupon = () => {
-    // Apply coupon logic here
-    // You can dispatch an action to apply the coupon or update the state accordingly
     setAppliedCoupon(couponCode);
   };
 
@@ -37,8 +41,67 @@ const Cart = () => {
   const couponApplied = appliedCoupon !== ""; // Check if coupon is applied
   const subtotalAfterDiscount = couponApplied ? subtotal * discount : subtotal;
 
-  // Calculate grand total
-  const grandTotal = subtotalAfterDiscount;
+  // Calculate shipping cost
+  let shippingCost = 0;
+
+  if (subtotal > 1000) {
+    shippingCost = 10;
+  } else {
+    shippingCost = 15;
+  }
+
+  // Calculate grand total including shipping cost
+  const grandTotal = subtotalAfterDiscount + shippingCost;
+
+  let navigate = useNavigate();
+
+  const handleToShopClick = () => {
+    navigate(`/shop`);
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+  };
+
+  useEffect(() => {
+    const fetchClientSecret = async () => {
+      try {
+        const response = await fetch("/api/paymentIntent", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: grandTotal }), // Send amount to create Payment Intent
+        });
+        const data = await response.json();
+        setClientSecret(data.client_secret); // Store client secret
+      } catch (error) {
+        console.error("Error fetching client secret:", error);
+      }
+    };
+
+    fetchClientSecret();
+  }, [grandTotal]); // Ensure useEffect runs when grandTotal changes
+
+  const handlePayment = async () => {
+    if (!clientSecret) {
+      toast.error("Oops..! Server error. Try again later!");
+      return;
+    }
+
+    const cardElement = stripe.elements().getElement("card"); // Initialize Stripe Elements and get card element
+    const { error } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement, // Use Stripe Elements to get card details
+      },
+    });
+
+    if (error) {
+      console.error("Payment failed:", error);
+      // Handle payment failure
+    } else {
+      console.log("Payment succeeded!");
+      // Handle payment success
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -62,7 +125,10 @@ const Cart = () => {
             <p className="text-gray-500 font-semibold text-center text-lg">
               Your cart is empty
             </p>
-            <button className="bg-violet-500 text-white px-6 py-3 rounded-md hover:bg-violet-600 focus:outline-none focus:bg-violet-600 flex items-center gap-2">
+            <button
+              className="bg-violet-500 text-white px-6 py-3 rounded-md hover:bg-violet-600 focus:outline-none focus:bg-violet-600 flex items-center gap-2"
+              onClick={handleToShopClick}
+            >
               Shop now
             </button>
           </div>
@@ -76,7 +142,9 @@ const Cart = () => {
                     alt={item.name}
                     className="object-cover  w-24 h-24 rounded-md"
                   />
-                  <h3 className="font-semibold text-lg hidden lg:block">{item.name}</h3>
+                  <h3 className="font-semibold text-lg hidden lg:block">
+                    {item.name}
+                  </h3>
                 </div>
                 <div className="text-gray-500 text-center">
                   Price: ${item.price}
@@ -84,11 +152,17 @@ const Cart = () => {
                 <div className="text-center">
                   <div className="flex items-center justify-center">
                     <button
-                      className="text-white bg-red-400 h-[2rem] w-[2rem] rounded-full font-semibold text-sm hover:-translate-y-1 transition-transform"
+                      className={`text-white bg-red-400 h-[2rem] w-[2rem] rounded-full font-semibold text-sm hover:-translate-y-1 transition-transform ${
+                        item.quantity === 1
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
                       onClick={() => handleUpdateQuantity(item.id, -1)}
+                      disabled={item.quantity === 1}
                     >
                       -
                     </button>
+
                     <span className="mx-4 font-medium">{item.quantity}</span>
                     <button
                       className="text-white bg-orange-400 h-[2rem] w-[2rem] rounded-full font-semibold text-sm hover:-translate-y-1 transition-transform"
@@ -127,10 +201,7 @@ const Cart = () => {
             Apply Coupon
           </button>
         </div>
-        <button className="transition ease-in-out delay-150 bg-violet-500 hover:-translate-y-1 hover:scale-110 hover:bg-orange-400 duration-300 px-6 py-3 rounded-md text-white font-semibold flex gap-2 items-center mb-2 lg:mb-0">
-          <RxUpdate />
-          <span className="lg:block hidden">Update Cart</span>
-        </button>
+        <CopyToClipboard text={"shoppify2103"} />
       </div>
 
       <hr className="mt" />
@@ -159,13 +230,24 @@ const Cart = () => {
           </div>
           <div className="flex justify-between items-center mt-2">
             <div className="text-lg font-medium text-gray-500">
+              Shipping Cost:
+            </div>
+            <div className="text-md text-gray-500">
+              ${shippingCost.toFixed(2)}
+            </div>
+          </div>
+          <div className="flex justify-between items-center mt-2">
+            <div className="text-lg font-medium text-gray-500">
               Grand Total:
             </div>
             <div className="text-md text-gray-800 font-semibold border-t-2">
               ${grandTotal.toFixed(2)}
             </div>
           </div>
-          <button className="transition ease-in-out delay-150 bg-violet-500 hover:bg-orange-400 duration-300 px-6 py-3 rounded-md text-white font-semibold flex gap-2 justify-center items-center mt-2 lg:mb-0 w-full">
+          <button
+            className="transition ease-in-out delay-150 bg-violet-500 hover:bg-orange-400 duration-300 px-6 py-3 rounded-md text-white font-semibold flex gap-2 justify-center items-center mt-2 lg:mb-0 w-full"
+            onClick={handlePayment}
+          >
             <FaCheckCircle />
             <span>Proceed to checkout</span>
           </button>
