@@ -15,7 +15,7 @@ import "../../assets/styles/swiper.css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import ProductCard from "./ProductCard";
 import Skeleton from "../resuable/Skeleton";
-import AlertCard from "../resuable/alertCard";
+import AlertCard from "../resuable/AlertCard";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../slice/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
