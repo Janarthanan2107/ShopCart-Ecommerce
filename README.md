@@ -1,4 +1,4 @@
-## ShopCart E-commerce Website REACT JS || NODE JS || EXPRESS JS || MONGO DB
+## ShopCart E-commerce Website REACT JS 
 
 ## This project is connected to the server side.
 
@@ -6,7 +6,7 @@ A brief description of your React application.
 
 ## Live Demo
 
-You can access a live demo of this project [here](https://blogg-sharing.netlify.app/).
+You can access a live demo of this project [here](https://shoppycartz.netlify.app/).
 
 ## Installation
 
