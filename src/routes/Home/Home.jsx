@@ -160,10 +160,6 @@ const Home = () => {
               disableOnInteraction: false,
             }}
             breakpoints={{
-              "@0.00": {
-                slidesPerView: 1,
-                spaceBetween: 10,
-              },
               "@0.75": {
                 slidesPerView: 2,
                 spaceBetween: 20,
@@ -191,7 +187,7 @@ const Home = () => {
                 <SwiperSlide key={item.id}>
                   <div className="w-full">
                     <img src={item.img} alt={item.name} />
-                    <h1>{item.name}</h1>
+                    <h1 className="text-sm lg:text-xl">{item.name}</h1>
                   </div>
                 </SwiperSlide>
               );
@@ -215,7 +211,7 @@ const Home = () => {
           {category.map((item, index) => {
             return (
               <div
-                className="flex shadow-md gap-6 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 hover:border-violet-600 hover:font-semibold"
+                className="flex shadow-md gap-6 my-2 rounded-lg overflow-hidden divide-x w-[150px] dark:bg-gray-50 dark:text-gray-800 dark:divide-gray-300 cursor-pointer border-b-4 hover:border-violet-600 hover:font-semibold"
                 key={index}
               >
                 <div className="flex items-center gap-2 font-semibold p-4">
