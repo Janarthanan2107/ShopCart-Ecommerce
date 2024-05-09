@@ -23,18 +23,12 @@ function Header() {
     },
     {
       id: 3,
-      name: "Categories",
-      icon: <BiSolidCategory />,
-      link: "/categories",
-    },
-    {
-      id: 4,
       name: "Contact Us",
       icon: <IoCall />,
       link: "/contactUs",
     },
     {
-      id: 5,
+      id: 4,
       name: "Cart",
       icon: <FaCartShopping />,
       link: "/cart",

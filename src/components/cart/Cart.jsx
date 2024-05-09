@@ -163,7 +163,7 @@ const Cart = () => {
         ) : (
           <>
             {cartItems.map((item) => (
-              <div className="grid grid-cols-4 gap-4 items-center w-full border-b-2 py-2">
+              <div className="grid grid-cols-4 gap-4 items-center w-full border-b-2 py-2" key={item.id}>
                 <div className="mr-4 flex gap-3 items-center">
                   <img
                     src={item.img}

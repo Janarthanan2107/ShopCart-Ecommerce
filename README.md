@@ -1,4 +1,4 @@
-## ShopCart E-commerce Website REACT JS 
+## ShopCart E-commerce Website REACT JS || NODE JS || EXPRESS JS || MONGO DB
 
 ## This project is connected to the server side.
 

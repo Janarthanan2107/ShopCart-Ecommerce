@@ -23,7 +23,7 @@ import { PiPantsFill } from "react-icons/pi";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { FaBottleWater } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import AlertCard from "../../components/resuable/AlertCard.jsx";
+import AlertCard from "../../components/resuable/AlertCard";
 
 const Home = () => {
   const [products, setProducts] = useState(data);
