@@ -47,13 +47,15 @@ const ProductCard = ({ item, notify }) => {
         <h2 className="text-sm font-semibold tracking-wide mt-2 line-clamp-1">
           {item.name}
         </h2>
-        <div className="flex justify-between mt-2 items-center">
-          <p className="bg-green-600 text-white p-1 rounded-full font-semibold text-sm">
-            $ {item.price}
-          </p>
-          <div className="flex items-center text-white bg-orange-400 p-1 rounded-full font-semibold text-sm">
-            <MdOutlineProductionQuantityLimits />
-            <span>{item.stock} remains</span>
+        <div className="hidden lg:block">
+          <div className="flex justify-between mt-2 items-center">
+            <p className="bg-green-600 text-white p-1 rounded-full font-semibold text-sm">
+              $ {item.price}
+            </p>
+            <div className="flex items-center text-white bg-orange-400 p-1 rounded-full font-semibold text-sm">
+              <MdOutlineProductionQuantityLimits />
+              <span>{item.stock} remains</span>
+            </div>
           </div>
         </div>
         <div className="mt-2">
