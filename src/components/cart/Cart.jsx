@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../../slice/cartSlice";
 import { IoClose } from "react-icons/io5";
 import { RiCoupon2Fill } from "react-icons/ri";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCcVisa, FaCheckCircle, FaGooglePay, FaPaypal } from "react-icons/fa";
 import CopyToClipboard from "../resuable/CopytoClipboard";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
+import { FaShoppingCart } from "react-icons/fa";
+import { SiPaytm } from "react-icons/si";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -15,8 +17,14 @@ const Cart = () => {
   const [couponCode, setCouponCode] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
-  const [stripe, setStripe] = useState(null);
-  const [clientSecret, setClientSecret] = useState(null);
+  // const [stripe, setStripe] = useState(null);
+  // const [clientSecret, setClientSecret] = useState(null);
+
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+
+  const toggleDialog = () => {
+    setIsPaymentOpen(!isPaymentOpen);
+  };
 
   const handleApplyCoupon = () => {
     setAppliedCoupon(couponCode);
@@ -61,47 +69,67 @@ const Cart = () => {
     window.scrollTo(0, 0);
   };
 
-  useEffect(() => {
-    const fetchClientSecret = async () => {
-      try {
-        const response = await fetch("/api/paymentIntent", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ amount: grandTotal }), // Send amount to create Payment Intent
-        });
-        const data = await response.json();
-        setClientSecret(data.client_secret); // Store client secret
-      } catch (error) {
-        console.error("Error fetching client secret:", error);
-      }
-    };
-
-    fetchClientSecret();
-  }, [grandTotal]); // Ensure useEffect runs when grandTotal changes
-
-  const handlePayment = async () => {
-    if (!clientSecret) {
-      toast.error("Oops..! Server error. Try again later!");
-      return;
-    }
-
-    const cardElement = stripe.elements().getElement("card"); // Initialize Stripe Elements and get card element
-    const { error } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement, // Use Stripe Elements to get card details
-      },
-    });
-
-    if (error) {
-      console.error("Payment failed:", error);
-      // Handle payment failure
-    } else {
-      console.log("Payment succeeded!");
-      // Handle payment success
-    }
+  const handleGooglePay = () => {
+    // Placeholder function for handling Google Pay
+    console.log("Google Pay clicked");
   };
+
+  const handleVisaCard = () => {
+    // Placeholder function for handling Visa Card
+    console.log("Visa Card clicked");
+  };
+
+  const handlePayPal = () => {
+    // Placeholder function for handling Pay pal
+    console.log("Pay pal clicked");
+  };
+
+  const handlePaytm = () => {
+    // Placeholder function for handling Paytm
+    console.log("Paytm clicked");
+  };
+
+  // useEffect(() => {
+  //   const fetchClientSecret = async () => {
+  //     try {
+  //       const response = await fetch("/api/paymentIntent", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ amount: grandTotal }), // Send amount to create Payment Intent
+  //       });
+  //       const data = await response.json();
+  //       setClientSecret(data.client_secret); // Store client secret
+  //     } catch (error) {
+  //       console.error("Error fetching client secret:", error);
+  //     }
+  //   };
+
+  //   fetchClientSecret();
+  // }, [grandTotal]); // Ensure useEffect runs when grandTotal changes
+
+  // const handlePayment = async () => {
+  //   if (!clientSecret) {
+  //     toast.error("Oops..! Server error. Try again later!");
+  //     return;
+  //   }
+
+  //   const cardElement = stripe.elements().getElement("card"); // Initialize Stripe Elements and get card element
+  //   const { error } = await stripe.confirmCardPayment(clientSecret, {
+  //     payment_method: {
+  //       card: cardElement, // Use Stripe Elements to get card details
+  //     },
+  //   });
+
+  //   if (error) {
+  //     console.error("Payment failed:", error);
+  //     // Handle payment failure
+  //   } else {
+  //     console.log("Payment succeeded!");
+  //     // Handle payment success
+  //   }
+  // };
 
   return (
     <div className="container mx-auto p-4">
@@ -246,12 +274,83 @@ const Cart = () => {
           </div>
           <button
             className="transition ease-in-out delay-150 bg-violet-500 hover:bg-orange-400 duration-300 px-6 py-3 rounded-md text-white font-semibold flex gap-2 justify-center items-center mt-2 lg:mb-0 w-full"
-            onClick={handlePayment}
+            onClick={toggleDialog}
           >
             <FaCheckCircle />
             <span>Proceed to checkout</span>
           </button>
         </div>
+
+        {isPaymentOpen && (
+          <div
+            className="relative z-10"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="sm:flex sm:items-start">
+                      <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <FaShoppingCart className="h-6 w-6 text-red-400" />
+                      </div>
+                      <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                        <h3
+                          className="text-base font-semibold leading-6 text-gray-600"
+                          id="modal-title"
+                        >
+                          Choose Payment Method
+                        </h3>
+                        <small className="mt-2 text-xs text-gray-600">
+                          Select your preferred payment method to complete your
+                          purchase securely and conveniently.
+                        </small>
+                        <div className="mt-4 flex flex-wrap gap-4 sm:justify-center">
+                          <button
+                            onClick={handleGooglePay}
+                            className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-slate-50 font-bold py-2 px-4 rounded-md hover:scale-110 transition-transform duration-300"
+                          >
+                            <FaGooglePay className="text-3xl" />
+                          </button>
+                          <button
+                            onClick={handleVisaCard}
+                            className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-slate-50 font-bold py-2 px-4 rounded-md hover:scale-110 transition-transform duration-300"
+                          >
+                            <FaCcVisa className="text-3xl" />
+                          </button>
+                          <button
+                            onClick={handlePayPal}
+                            className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:scale-110 transition-transform duration-300"
+                          >
+                            <FaPaypal className="text-3xl" />
+                          </button>
+                          <button
+                            onClick={handlePaytm}
+                            className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md hover:scale-110 transition-transform duration-300"
+                          >
+                            <SiPaytm className="text-3xl" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 pt-3 px-3 sm:flex sm:flex-row-reverse sm:px-6 absolute top-0 right-0">
+                    <button
+                      type="button"
+                      onClick={toggleDialog}
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    >
+                      x
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
