@@ -74,7 +74,7 @@ function Footer() {
         <div className="mt-8 text-sm text-center">
           <p>
             &copy; {new Date().getFullYear()} Your SHOPCART. All Rights
-            Reserved.
+            Reserved. Developed by Jan 🤍
           </p>
         </div>
       </div>
